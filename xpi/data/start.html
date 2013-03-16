@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <script type="text/javascript" src="jstree/_lib/jquery.js"></script>
+        <script type="text/javascript" src="jstree/_lib/jquery.cookie.js"></script>
+        <script type="text/javascript" src="jstree/_lib/jquery.hotkeys.js"></script>
+        <script type="text/javascript" src="jstree/jquery.jstree.js"></script>
+        <link type="text/css" rel="stylesheet" href="jstree/_docs/!style.css"/>
+        <script type="text/javascript" class="source">
+            $(function () {
+                    // TO CREATE AN INSTANCE
+                    // select the tree container using jQuery
+                    $("#divTabs")
+                    // call `.jstree` with the options object
+                    .jstree({
+                        // the `plugins` array allows you to configure the active plugins on this instance
+                        "plugins" : ["themes","html_data","ui","crrm","hotkeys"],
+                        // each plugin you have included can have its own config object
+                        "core" : { "initially_open" : [] }
+                        // it makes sense to configure a plugin only if overriding the defaults
+                        })
+                    .bind("select_node.jstree", function (event, data) {
+                        // `data.rslt.obj` is the jquery extended node that was clicked
+                        var url = data.rslt.obj.children('a').attr("href");
+                        if (url != null) {
+                            window.open(url);
+                        }
+                        })
+                    // EVENTS
+                    // each instance triggers its own events - to process those listen on the container
+                    // all events are in the `.jstree` namespace
+                    // so listen for `function_name`.`jstree` - you can function names from the docs
+                    .bind("loaded.jstree", function (event, data) {
+                        // you get two params - event & data - check the core docs for a detailed description
+                        });
+                    });
+                </script>
+
+        <script type="text/javascript">
+            function keydown(ev) {
+                if (ev.keyCode == 13) {
+                    var bt = document.getElementById('login');
+                    if (null == bt) {
+                        bt = document.getElementById('saveTabs');
+                    }
+                    bt.click();
+                }
+            }
+        </script>
+
+        <style type="text/css">
+            body {
+                background-color:white;
+                margin: 5px 20px 5px 20px;
+            }
+            div.divLogin {
+                position: relative;
+                width: 400px;
+                top: 20px;
+                line-height: 300%;
+            }
+        </style>
+    </head>
+    <body>
+        <h1> Kangaroo </h1>
+        <div class='divLogin' id='divLogin' align='right'>
+            <p>
+            <label for='user' style='font-size:16px'>Email:</label>
+            <input id='user' type='email' placeholder='name@sample.com' autofocus style='margin-left: 28px' />
+            <br/>
+            <label for='pass' style='font-size:16px'>Password:</label>
+            <input id='pass' type='password' />
+            <br/>
+            <button id='login' type='button'>login</button>
+            </p>
+            <p>
+            <button id='apply' type='button' style='width:200;height=20'>Register</button>
+            </p>
+        </div>
+
+        <div id='divMain' style='visibility: hidden'>
+            <div id='divLogout' align='right'>
+                <input id='infoUser' type='image' alt='username'>
+                <input id='logout' type='image' alt='logout' style='margin-left:12px'>
+            </div>
+            <div id='divSave'>
+                <p>
+                <label for='savename' style='font-size:16px'>Save As:</label>
+                <input id="saveName" type="text">
+                <input id="all_tabs" type="checkbox">
+                <label for="all_tabs">All Tabs</label>
+                <input id="saveTabs" type="image" src="save.png" style="margin-left:10px"/>
+                </p>
+            </div>
+            <br/>
+            <div id='divTabs' class='divTabs' >
+            </div>
+        </div>
+    </body>
+</html>

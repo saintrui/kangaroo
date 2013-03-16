@@ -1,0 +1,19 @@
+h1= title
+p make your life better
+
+h2 Welcome Register
+
+form(method="post", action="/apply")
+  label(for="user") email:
+  br
+  input#user(type="email", name="email") 
+  br
+  label(for="pass") password:
+  br
+  input#pass(type="password", name="password")
+  br
+  br
+  input(type="submit", value="Register")
+
+p
+  a(href="/xpi/kangaroo.xpi") Download the firefox extension
